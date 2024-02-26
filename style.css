@@ -119,3 +119,7 @@ a {
     box-shadow:  7px 7px 14px #303030,
              -7px -7px 14px #5c5c5c;
 }
+
+p{
+    font-size: 15px;
+}
