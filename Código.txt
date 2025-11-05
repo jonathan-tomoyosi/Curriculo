@@ -1,0 +1,342 @@
+Css
+
+@import "tailwindcss";
+
+@media (min-width: 700px)  {body {
+  background: #484848;
+  color: #ededed;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 450px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 2rem 1rem;
+  background: transparent;
+  background: #484848;
+  }
+}
+
+body {
+  background: #484848;
+  color: #ededed;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;
+  display: flex;
+  margin: 2%;
+  max-height: 20px;
+  max-width: 450px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+  width: 100%;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 10%;
+  justify-content: center;
+  display: flex;
+  align-items: start;
+}
+
+.botao {
+  margin-bottom: 5%;
+  align-items: center;
+  display: flex;
+  border: white 2px solid;
+  border-radius: 10px;
+  padding: 5%;
+  font-size: 21px;
+}
+
+.logo-img {
+  width: 100px;
+  margin-bottom: 40%;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 300px;
+}
+
+.operarios-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+  border: red 2px solid;
+}
+
+.versiculo h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.versiculo p {
+  font-size: 1.1rem;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 10%;
+}
+
+.mensagem p {
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+  max-width: 600px;
+  margin-bottom: 10%;
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+}
+
+.voltar {
+  margin-bottom: 5%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 10px;
+  padding: 2%;
+  margin-right: 80%;
+  font-size: 40px;
+}
+
+.icon {
+  font-size: 1.9rem;
+  margin-right: 20px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* fundo escurecido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #484848;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-content button {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-content .fechar {
+  background-color: #999;
+}
+
+.modal-content h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.login-button {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  margin-left: 80%;
+  font-size: 30px;
+}
+
+.auth-info {
+  display: flex;
+  gap: 1rem;
+  font-size: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.logout-button {
+  color: white;
+  position: fixed; 
+  top: 10px;       
+  left: 10px;
+  z-index: 1000;
+  color: white;
+  border: none;
+  padding: 14px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.react-calendar {
+  border: none;
+  font-family: sans-serif;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.react-calendar__tile {
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.react-calendar__tile--active {
+  background: #2d6cdf;
+  color: white;
+}
+
+.react-calendar__tile--now {
+  background: #e6f0ff;
+  border: 1px solid #2d6cdf;
+}
+
+page.tsx
+
+"use client";
+import Link from "next/link";
+import { useState } from "react";
+import LoginModal from "../components/LoginModal";
+import { useAuth } from "@/context/AuthContext"; // importa o contexto
+import {
+  FaBriefcase,
+  FaCalendarAlt,
+  FaQrcode,
+  FaMapMarkerAlt,
+  FaInstagram,
+} from "react-icons/fa";
+import { FaUser } from "react-icons/fa6";
+import { TbLogout2 } from "react-icons/tb";
+import { PiHandsPrayingFill } from "react-icons/pi";
+
+
+export default function HomePage() {
+  const [showModal, setShowModal] = useState(false);
+  const { user, logout } = useAuth();
+
+  // Pega o primeiro nome do user_metadata.nome ou do email
+  const primeiroNome =
+    user?.user_metadata?.nome?.split(" ")[0] ||
+    user?.email?.split("@")[0] ||
+    "";
+
+  return (
+    <main>
+      {/* Se não tiver usuário logado, mostra botão de login */}
+      {!user ? (
+        <button className="login-button" onClick={() => setShowModal(true)}>
+          <FaUser />
+        </button>
+      ) : (
+        <div className="auth-info">
+          <p>Bem-vindo{'(a)'}, {primeiroNome}!</p>
+          <button className="logout-button" onClick={logout}>
+            <TbLogout2 />
+          </button>
+        </div>
+      )}
+
+      <div className="logo">
+        <picture>
+          <img
+            src="/bom_pastor_processed.png"
+            alt="Logo Cordeiro"
+            className="logo-img"
+          />
+        </picture>
+      </div>
+
+      <nav className="menu">
+        <Link href="/Operarios" className="botao">
+          <FaBriefcase className="icon" />
+          <p>Operários</p>
+        </Link>
+
+        <Link href="/Calendario" className="botao">
+          <FaCalendarAlt className="icon" />
+          <span>Eventos</span>
+        </Link>
+
+        <Link href="/Oracao" className="botao">
+          <PiHandsPrayingFill className="icon"/>
+          <span>Pedido de oração</span>
+        </Link>
+
+        <Link href="/Dizimo" className="botao">
+          <FaQrcode className="icon" />
+          <span>Dízimo e Ofertas</span>
+        </Link>
+
+        <Link
+          href="https://www.instagram.com/bompastorsp"
+          target="_blank"
+          className="botao"
+        >
+          <FaInstagram className="icon" />
+          <span>Instagram</span>
+        </Link>
+
+        <Link 
+          href="https://waze.com/ul?q=R.%20Lisboa,%2085%20-%20Oswaldo%20Cruz%2C%20São%20Caetano%20do%20Sul%20-%20SP%2C%2009570-510"
+          target="_blank"
+          className="botao">
+          <FaMapMarkerAlt className="icon" />
+          <span>Endereço</span>
+        </Link>
+      </nav>
+
+      {showModal && <LoginModal onClose={() => setShowModal(false)} />}
+    </main>
+  );
+}
