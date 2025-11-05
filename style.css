@@ -135,12 +135,18 @@ p{
     .teste, .info {
         flex-direction: column;
         width: 90%;
-        margin: auto;
+        margin: 30px auto;
+        padding: 3px;
     }
 
     .perfil {
-        max-width: 60%;
-        margin: auto;
+        display: flex;
+        max-width: 20%;
+        border-radius: 10%;
+        border: 5px solid rgb(72, 226, 72);
+        margin-left: 5%;
+        margin-top: 8%;
+        block-size: 35%;
     }
 
     #menu a {
@@ -150,7 +156,7 @@ p{
 
     #projeto {
         width: 90%;
-        margin: auto;
+        margin: 30px auto;
     }
 }
 
