@@ -1,0 +1,270 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Tokens semânticos
+   --------------------------------------------------------------------------
+   Duas dimensões independentes escritas em <html> por src/lib/theme.ts:
+     data-mode="light|dark"                → superfícies e texto
+     data-accent="slate|blue|emerald|…"    → cor de destaque
+   Nenhum componente conhece cor literal: todos consomem os tokens abaixo.
+   ========================================================================== */
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-family), ui-monospace, 'SF Mono', monospace;
+
+  --radius-card: 0.875rem;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---------- Modo claro (padrão) ---------- */
+:root {
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --elevated: #ffffff;
+  --border: #e8e8e8;
+  --border-strong: #d4d4d4;
+  --fg: #0a0a0a;
+  --muted: #5f5f5f;
+  --subtle: #707070;
+}
+
+/* ---------- Modo escuro ---------- */
+[data-mode='dark'] {
+  --bg: #0a0a0a;
+  --surface: #0f0f0f;
+  --elevated: #151515;
+  --border: #232323;
+  --border-strong: #333333;
+  --fg: #ededed;
+  --muted: #a0a0a0;
+  --subtle: #8a8a8a;
+}
+
+/* ---------- Cores de destaque ----------
+   Cada acento tem par claro/escuro escolhido para manter contraste AA
+   sobre a superfície do respectivo modo.                                    */
+
+[data-accent='slate'] {
+  --accent: #475569;
+  --accent-fg: #ffffff;
+}
+[data-mode='dark'][data-accent='slate'] {
+  --accent: #94a3b8;
+  --accent-fg: #0a0a0a;
+}
+
+[data-accent='blue'] {
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+}
+[data-mode='dark'][data-accent='blue'] {
+  --accent: #60a5fa;
+  --accent-fg: #0a0a0a;
+}
+
+[data-accent='emerald'] {
+  --accent: #047857;
+  --accent-fg: #ffffff;
+}
+[data-mode='dark'][data-accent='emerald'] {
+  --accent: #34d399;
+  --accent-fg: #0a0a0a;
+}
+
+[data-accent='violet'] {
+  --accent: #6d28d9;
+  --accent-fg: #ffffff;
+}
+[data-mode='dark'][data-accent='violet'] {
+  --accent: #a78bfa;
+  --accent-fg: #0a0a0a;
+}
+
+[data-accent='amber'] {
+  --accent: #b45309;
+  --accent-fg: #ffffff;
+}
+[data-mode='dark'][data-accent='amber'] {
+  --accent: #fbbf24;
+  --accent-fg: #0a0a0a;
+}
+
+/* ---------- Rede de segurança ----------
+   Se `data-accent` faltar por qualquer motivo, --accent ficaria indefinido e todo
+   uso do token quebraria junto — inclusive o gradiente do nome, que usa
+   `color: transparent` e portanto desapareceria. Estes dois blocos usam `:not()`
+   para valer SOMENTE na ausência do atributo, sem competir com as paletas acima. */
+:root:not([data-accent]) {
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+}
+[data-mode='dark']:not([data-accent]) {
+  --accent: #60a5fa;
+  --accent-fg: #0a0a0a;
+}
+
+/* Derivados: um só lugar, calculados a partir do acento vigente. */
+:root,
+[data-mode='dark'] {
+  --accent-soft: color-mix(in oklab, var(--accent) 12%, transparent);
+  --accent-line: color-mix(in oklab, var(--accent) 32%, transparent);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Compensa o header fixo quando o usuário chega por âncora. */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 999px;
+    border: 2px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--subtle);
+  }
+}
+
+/* ==========================================================================
+   Utilitários de composição
+   ========================================================================== */
+
+@layer utilities {
+  /* Malha de fundo do hero — some suavemente em direção à base. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 78%);
+  }
+
+  /* Fundo das capas geradas para projeto sem screenshot. */
+  .bg-dots {
+    background-image: radial-gradient(var(--border-strong) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+
+  /* A cor sólida vem primeiro: se o recorte de fundo no texto não for suportado,
+     o texto continua legível em vez de ficar transparente. */
+  .text-gradient {
+    color: var(--fg);
+  }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .text-gradient {
+      background: linear-gradient(135deg, var(--fg) 20%, var(--accent) 130%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  .card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+  }
+
+  /* Aparece ao entrar na viewport. O estado inicial só é aplicado quando o
+     JavaScript confirma suporte, para o conteúdo nunca ficar invisível sem ele. */
+  .reveal {
+    opacity: 1;
+  }
+  [data-js='true'] .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s var(--ease-out-quint),
+      transform 0.6s var(--ease-out-quint);
+  }
+  [data-js='true'] .reveal[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Acessibilidade e impressão
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-js='true'] .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}
