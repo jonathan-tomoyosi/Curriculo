@@ -39,6 +39,25 @@ export async function GET(
     // para não expor detalhe interno a quem só pediu um currículo.
     console.error('Falha ao gerar o currículo em PDF', { locale, error })
 
+    // TEMPORÁRIO: diagnóstico de uma falha que só acontece no ambiente serverless.
+    // Removido assim que a causa for identificada.
+    if (_request.headers.get('x-cv-debug') === '1') {
+      const detalhe =
+        error instanceof Error
+          ? [error.name, error.message, error.stack?.split('
+').slice(0, 6).join('
+')]
+              .filter(Boolean)
+              .join('
+')
+          : String(error)
+
+      return new Response(detalhe, {
+        status: 500,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      })
+    }
+
     return new Response('Não foi possível gerar o PDF no momento.', {
       status: 500,
       headers: { 'Content-Type': 'text/plain; charset=utf-8' },
