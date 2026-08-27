@@ -11,10 +11,7 @@ export const runtime = 'nodejs'
  * derivado do mesmo dado que a página mostra, então não há como um ficar
  * desatualizado em relação ao outro.
  */
-export async function GET(
-  _request: Request,
-  { params }: { params: Promise<{ locale: string }> },
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params
   if (!isLocale(raw)) {
     return new Response('Idioma não suportado', { status: 404 })
@@ -39,17 +36,12 @@ export async function GET(
     // para não expor detalhe interno a quem só pediu um currículo.
     console.error('Falha ao gerar o currículo em PDF', { locale, error })
 
-    // TEMPORÁRIO: diagnóstico de uma falha que só acontece no ambiente serverless.
-    // Removido assim que a causa for identificada.
-    if (_request.headers.get('x-cv-debug') === '1') {
+    // TEMPORÁRIO: a falha só acontece no ambiente serverless, e o 500 genérico não diz
+    // nada de fora. Sai assim que a causa for identificada.
+    if (request.headers.get('x-cv-debug') === '1') {
       const detalhe =
         error instanceof Error
-          ? [error.name, error.message, error.stack?.split('
-').slice(0, 6).join('
-')]
-              .filter(Boolean)
-              .join('
-')
+          ? [error.name, error.message, error.stack].filter(Boolean).join('\n')
           : String(error)
 
       return new Response(detalhe, {
