@@ -5,13 +5,14 @@
   "description": "Portfólio e currículo de Jonathan Gamez Tomoyosi",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/verify-trace.mjs",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "next build && playwright test"
+    "test:e2e": "npm run build && playwright test",
+    "verify:trace": "node scripts/verify-trace.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.8.1",

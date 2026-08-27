@@ -145,6 +145,15 @@ assinatura `%PDF-` em ambos os idiomas.
 Rodar em perfil mobile não é redundância: foi ele que pegou os botões de modo de tema
 sem nome acessível, porque o rótulo visível some abaixo do breakpoint `sm`.
 
+**Rastreamento de arquivos (`scripts/verify-trace.mjs`)** — a categoria que nenhum teste
+local alcança. O PDF gerava em desenvolvimento e passava no Playwright, mas devolvia 500
+na Vercel: `next start` roda com o `node_modules` inteiro à mão, enquanto a função
+serverless recebe só o que o rastreador detectou — e o pdfkit lê as métricas das fontes
+padrão via `fs.readFileSync` com caminho montado em tempo de execução, invisível para a
+análise estática. O script lê o manifesto de rastreamento gerado pelo build e falha se um
+arquivo obrigatório ficou de fora. Roda dentro do próprio `npm run build`, então o erro
+aparece antes do deploy, não depois.
+
 ---
 
 ## 8. O que foi deliberadamente evitado

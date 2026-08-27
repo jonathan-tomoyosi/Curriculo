@@ -25,12 +25,13 @@ idioma do navegador.
 | Comando | O que faz |
 |---------|-----------|
 | `npm run dev` | Servidor de desenvolvimento |
-| `npm run build` | Build de produção |
+| `npm run build` | Build de produção, com verificação do rastreamento de arquivos |
 | `npm run start` | Sobe o build de produção |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript sem emitir |
 | `npm test` | Testes de unidade (Vitest) |
 | `npm run test:e2e` | Testes ponta a ponta (Playwright) |
+| `npm run verify:trace` | Confere se os arquivos de runtime chegam à função serverless |
 
 Antes do primeiro `test:e2e`:
 

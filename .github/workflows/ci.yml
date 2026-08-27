@@ -34,7 +34,10 @@ jobs:
       - name: Testes de unidade
         run: npm test
 
-      - name: Build de produção
+      # O `build` já roda scripts/verify-trace.mjs: falha se um arquivo obrigatório em
+      # tempo de execução não chegar à função serverless — erro que só apareceria em
+      # produção, porque `next start` local enxerga o node_modules inteiro.
+      - name: Build de produção e verificação do rastreamento
         run: npm run build
 
   e2e:

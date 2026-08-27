@@ -21,14 +21,27 @@ export async function GET(
   }
   const locale: Locale = raw
 
-  const buffer = await renderToBuffer(CvDocument({ locale }))
   const filename = locale === 'pt' ? 'Jonathan-Tomoyosi-Curriculo.pdf' : 'Jonathan-Tomoyosi-CV.pdf'
 
-  return new Response(new Uint8Array(buffer), {
-    headers: {
-      'Content-Type': 'application/pdf',
-      'Content-Disposition': `attachment; filename="${filename}"`,
-      'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
-    },
-  })
+  try {
+    const buffer = await renderToBuffer(CvDocument({ locale }))
+
+    return new Response(new Uint8Array(buffer), {
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': `attachment; filename="${filename}"`,
+        'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
+      },
+    })
+  } catch (error) {
+    // Um 500 mudo aqui custou uma ida à produção para ser diagnosticado: a falha era de
+    // empacotamento, não de código. O log dá o motivo real; a resposta continua genérica
+    // para não expor detalhe interno a quem só pediu um currículo.
+    console.error('Falha ao gerar o currículo em PDF', { locale, error })
+
+    return new Response('Não foi possível gerar o PDF no momento.', {
+      status: 500,
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    })
+  }
 }
