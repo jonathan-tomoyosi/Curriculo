@@ -115,7 +115,7 @@ habilidades de Office / montagem de máquinas / redes Windows · TecBlog · Menu
 - Nome, cidade (São Caetano do Sul, SP), e-mail, telefone D9, GitHub, LinkedIn
 - Resumo profissional reescrito a partir do PDF (nível dev, não nível estagiário)
 - Objetivo profissional (do PDF)
-- Formação: **Uninove** — Tecnólogo em ADS (2022–2024) · **FIAP** — MBA em Engenharia de Dados (em formação)
+- Formação: **Uninove** — Tecnólogo em ADS (jan/2022 – jul/2024) · **FIAP** — MBA em Engenharia de Dados (em formação)
 - Idiomas: inglês intermediário, espanhol intermediário
 - Competências do PDF: design de sistemas, análise e processamento de dados, método ágil, AWS, UI/UX, trabalho em equipe
 
@@ -151,16 +151,15 @@ Docker, Keycloak, ETL e Lambdas — nada disso estava escrito.
 
 ### Suposições a confirmar
 
-Datas que o currículo em PDF traz apenas com o ano; assumi janeiro e marquei aqui em vez
-de deixar passar em silêncio. Corrigir é editar um campo. As linhas riscadas já foram
-confirmadas pelo Jonathan.
+Todas confirmadas. Ficam registradas porque foram suposições minhas — o currículo em PDF
+trazia apenas o ano, e eu assumi janeiro em cada caso em vez de deixar passar em silêncio.
 
 | Item | Assumido | Onde |
 |------|----------|------|
 | ~~Início na Open Br~~ | **confirmado: novembro/2025** | `src/content/experience.ts` |
-| Início na Yma Log | janeiro/2026 | `src/content/experience.ts` |
+| ~~Início na Yma Log~~ | **confirmado: janeiro/2026** | `src/content/experience.ts` |
 | ~~Início do MBA na FIAP~~ | **confirmado: agosto/2026** | `src/content/profile.ts` |
-| Início na Uninove | janeiro/2022 (conclusão dez/2024) | `src/content/profile.ts` |
+| ~~Período na Uninove~~ | **confirmado: janeiro/2022 a julho/2024** | `src/content/profile.ts` |
 
 ### Ajustes decididos durante a construção
 

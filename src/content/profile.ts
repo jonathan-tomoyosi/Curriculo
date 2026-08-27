@@ -88,7 +88,7 @@ export const education: readonly Education[] = [
       pt: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
       en: 'Technologist in Systems Analysis and Development',
     },
-    period: { start: '2022-01', end: '2024-12' },
+    period: { start: '2022-01', end: '2024-07' },
     status: { pt: 'Concluído', en: 'Completed' },
   },
 ]
