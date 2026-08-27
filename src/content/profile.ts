@@ -79,7 +79,7 @@ export const education: readonly Education[] = [
       pt: 'MBA em Engenharia de Dados',
       en: 'MBA in Data Engineering',
     },
-    period: { start: '2025-01', end: null },
+    period: { start: '2026-08', end: null },
     status: { pt: 'Em formação', en: 'In progress' },
   },
   {

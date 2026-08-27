@@ -158,7 +158,7 @@ passar em silêncio. Corrigir é editar um campo.
 |------|----------|------|
 | Início na Open Br | janeiro/2025 | `src/content/experience.ts` |
 | Início na Yma Log | janeiro/2026 | `src/content/experience.ts` |
-| Início do MBA na FIAP | janeiro/2025 | `src/content/profile.ts` |
+| ~~Início do MBA na FIAP~~ | **confirmado: agosto/2026** | `src/content/profile.ts` |
 | Início na Uninove | janeiro/2022 (conclusão dez/2024) | `src/content/profile.ts` |
 
 ### Ajustes decididos durante a construção
