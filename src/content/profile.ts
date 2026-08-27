@@ -45,9 +45,9 @@ export const profile: Profile = {
         'pontas — o banco que precisa aguentar volume e a tela que uma pessoa não-técnica vai ' +
         'abrir no celular. Gosto de projeto documentado, de decisão explicada e de código que ' +
         'outra pessoa consegue assumir sem precisar me chamar.',
-      'Comunico com clareza, trabalho bem em equipe e me adapto rápido a contexto novo: em ' +
-        '2025 passei de suporte para desenvolvimento fullstack e, no mesmo ano, já respondia ' +
-        'pela infraestrutura AWS dos projetos.',
+      'Comunico com clareza, trabalho bem em equipe e me adapto rápido a contexto novo: ' +
+        'vim do suporte técnico para o desenvolvimento fullstack e hoje respondo também pela ' +
+        'infraestrutura AWS dos projetos.',
     ].join('\n\n'),
     en: [
       'I am curious by nature and stubborn with a hard problem. I started out with hardware and ' +
@@ -57,9 +57,9 @@ export const profile: Profile = {
         'has to hold up under volume, and the screen a non-technical person will open on their ' +
         'phone. I like documented projects, explained decisions, and code someone else can take ' +
         'over without having to call me.',
-      'I communicate clearly, work well in a team and adapt quickly to new context: in 2025 I ' +
-        'moved from support into fullstack development and, within the same year, was already ' +
-        'responsible for the projects’ AWS infrastructure.',
+      'I communicate clearly, work well in a team and adapt quickly to new context: I came ' +
+        'from technical support into fullstack development and today I am also responsible for ' +
+        'the projects’ AWS infrastructure.',
     ].join('\n\n'),
   },
   objective: {

@@ -16,7 +16,7 @@ export const experiences: readonly Experience[] = [
       pt: 'Desenvolvedor Fullstack',
       en: 'Fullstack Developer',
     },
-    period: { start: '2025-01', end: null },
+    period: { start: '2025-11', end: null },
     summary: {
       pt:
         'Atuação de ponta a ponta em plataformas de dados do setor público: da ingestão e ' +

@@ -122,7 +122,7 @@ habilidades de Office / montagem de máquinas / redes Windows · TecBlog · Menu
 ### Experiência
 | Empresa | Tratamento |
 |---------|-----------|
-| Open Br (2025 – atual) | Descrição genérica por D2: Big Data, infraestrutura AWS, sistemas fiscais, auditoria de processamento, análise de dados, UX/UI, migração de legado |
+| Open Br (nov/2025 – atual) | Descrição genérica por D2: Big Data, infraestrutura AWS, sistemas fiscais, auditoria de processamento, análise de dados, UX/UI, migração de legado |
 | Igreja Bom Pastor SP | Detalhada + estudo de caso com link ao vivo |
 | Yma Log (2026) | Detalhada — mobile, redesenho, transposição web → mobile |
 
@@ -151,12 +151,13 @@ Docker, Keycloak, ETL e Lambdas — nada disso estava escrito.
 
 ### Suposições a confirmar
 
-Datas que o PDF traz apenas com o ano; assumi janeiro e marquei aqui em vez de deixar
-passar em silêncio. Corrigir é editar um campo.
+Datas que o currículo em PDF traz apenas com o ano; assumi janeiro e marquei aqui em vez
+de deixar passar em silêncio. Corrigir é editar um campo. As linhas riscadas já foram
+confirmadas pelo Jonathan.
 
 | Item | Assumido | Onde |
 |------|----------|------|
-| Início na Open Br | janeiro/2025 | `src/content/experience.ts` |
+| ~~Início na Open Br~~ | **confirmado: novembro/2025** | `src/content/experience.ts` |
 | Início na Yma Log | janeiro/2026 | `src/content/experience.ts` |
 | ~~Início do MBA na FIAP~~ | **confirmado: agosto/2026** | `src/content/profile.ts` |
 | Início na Uninove | janeiro/2022 (conclusão dez/2024) | `src/content/profile.ts` |
