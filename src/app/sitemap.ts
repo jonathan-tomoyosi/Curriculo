@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { LOCALES } from '@/content/types'
 import { projects } from '@/content/projects'
+import { SITE_URL } from '@/lib/site-url'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://jonathan-tomoyosi.vercel.app'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()

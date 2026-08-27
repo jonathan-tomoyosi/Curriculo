@@ -124,6 +124,11 @@ simplesmente aparece. `prefers-reduced-motion` desliga o efeito por completo.
 
 O middleware roda no edge e só faz redirecionamento de idioma.
 
+A URL canônica não é configurada à mão: `src/lib/site-url.ts` prefere um domínio próprio
+se houver, senão usa o domínio de produção que a Vercel injeta no ambiente. Uma canônica
+errada não quebra a página — só faz o buscador indexar um endereço que não existe, e é
+justamente por ser silencioso que a resolução é automática e testada.
+
 ---
 
 ## 7. Testes

@@ -125,28 +125,40 @@ test.describe('tema', () => {
 })
 
 test.describe('command palette', () => {
-  test('abre por atalho de teclado e navega para um projeto', async ({ page }) => {
-    await page.goto('/pt')
+  /**
+   * Disparar tecla logo após o `goto` corre com a hidratação: se o atalho chega antes
+   * de o React registrar o listener, a tecla se perde e o teste falha de forma
+   * intermitente. O componente Reveal escreve `data-js` em <html> assim que monta, o
+   * que serve de sinal confiável de que o JavaScript do cliente já está no ar.
+   */
+  async function aguardarHidratacao(page: Page) {
+    await expect(page.locator('html')).toHaveAttribute('data-js', /^(true|false)$/)
+  }
 
+  async function abrirPorAtalho(page: Page) {
+    await aguardarHidratacao(page)
     await page.keyboard.press('ControlOrMeta+k')
     const input = page.getByPlaceholder(/Buscar seções/)
     await expect(input).toBeVisible()
+    return input
+  }
 
-    await input.fill('Bom Pastor')
-    await page.keyboard.press('Enter')
-
-    await expect(page).toHaveURL(/\/pt\/projetos\/bom-pastor-sp$/)
-  })
-
-  // Estes dois abrem pela lupa do cabeçalho, não pelo atalho: o atalho já tem teste
-  // próprio acima, e disparar tecla logo após o carregamento corre com o registro do
-  // listener. Abrir pelo botão torna o teste determinístico e ainda cobre o botão.
   async function abrirPaleta(page: Page) {
     await page.getByRole('button', { name: 'Buscar' }).click()
     const input = page.getByPlaceholder(/Buscar seções/)
     await expect(input).toBeVisible()
     return input
   }
+
+  test('abre por atalho de teclado e navega para um projeto', async ({ page }) => {
+    await page.goto('/pt')
+
+    const input = await abrirPorAtalho(page)
+    await input.fill('Bom Pastor')
+    await page.keyboard.press('Enter')
+
+    await expect(page).toHaveURL(/\/pt\/projetos\/bom-pastor-sp$/)
+  })
 
   test('oferece a troca para o modo escuro', async ({ page }) => {
     await page.goto('/pt')
@@ -173,9 +185,10 @@ test.describe('command palette', () => {
 
   test('fecha com Escape', async ({ page }) => {
     await page.goto('/pt')
-    await page.keyboard.press('ControlOrMeta+k')
-    await expect(page.getByPlaceholder(/Buscar seções/)).toBeVisible()
+
+    await abrirPorAtalho(page)
     await page.keyboard.press('Escape')
+
     await expect(page.getByPlaceholder(/Buscar seções/)).toHaveCount(0)
   })
 })

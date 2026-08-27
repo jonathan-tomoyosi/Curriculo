@@ -5,6 +5,7 @@ import { LOCALES, isLocale, type Locale } from '@/content/types'
 import { profile } from '@/content/profile'
 import { ui } from '@/content/ui'
 import { THEME_INIT_SCRIPT } from '@/lib/theme'
+import { SITE_URL } from '@/lib/site-url'
 import { ThemeProvider } from '@/components/theme-provider'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
@@ -24,7 +25,6 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono-family',
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://jonathan-tomoyosi.vercel.app'
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }))

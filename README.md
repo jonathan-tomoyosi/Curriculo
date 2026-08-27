@@ -108,11 +108,18 @@ tecnologia foi usada. Se não dá para escrever onde usou, não entra na lista.
 
 ## Deploy
 
-Projeto Next.js padrão na Vercel. Variável opcional:
+Projeto Next.js padrão na Vercel — importar o repositório e publicar. **Não há variável
+de ambiente para configurar.**
 
-| Variável | Uso | Padrão |
-|----------|-----|--------|
-| `NEXT_PUBLIC_SITE_URL` | URL canônica em sitemap, robots e metadata | `https://jonathan-tomoyosi.vercel.app` |
+A URL canônica usada em `metadataBase`, `hreflang`, sitemap e robots é resolvida sozinha
+por [`src/lib/site-url.ts`](./src/lib/site-url.ts), nesta ordem:
+
+1. `NEXT_PUBLIC_SITE_URL` — defina apenas se houver domínio próprio
+2. `VERCEL_PROJECT_PRODUCTION_URL` — o domínio de produção que a Vercel injeta sozinha
+3. `http://localhost:3000` em desenvolvimento
+
+Deploys de preview também apontam a canônica para a produção, e não para si mesmos —
+que é o comportamento correto para buscador.
 
 ---
 
