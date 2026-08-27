@@ -8,16 +8,19 @@ const nextConfig: NextConfig = {
   /**
    * Arquivos que o rastreador do Next não consegue enxergar.
    *
-   * O pdfkit lê as métricas das fontes padrão (Helvetica e Helvetica-Bold, usadas pelo
-   * currículo) com `fs.readFileSync` sobre um caminho montado em tempo de execução. Como
-   * a análise estática não segue isso, os `.afm` ficavam de fora do pacote serverless: o
-   * PDF gerava local — onde o node_modules inteiro está à mão — e devolvia 500 na Vercel.
+   * O pdfkit carrega cada fonte padrão como um módulo próprio, exigido pelo nome em
+   * tempo de execução — `standard-fonts/Helvetica.cjs` e companhia. A análise estática
+   * não consegue seguir um `require` montado por concatenação, então esses arquivos
+   * ficavam de fora do pacote serverless. O PDF gerava em desenvolvimento, onde o
+   * node_modules inteiro está à mão, e devolvia 500 na Vercel com
+   * `Cannot find module '.../standard-fonts/Helvetica.cjs'`.
    *
    * Um erro que só existe em produção; daí o script `verify:trace`, que confere o
    * rastreamento logo após o build.
    */
   outputFileTracingIncludes: {
     '/api/cv/[locale]': [
+      './node_modules/pdfkit/js/standard-fonts/**',
       './node_modules/pdfkit/js/data/**',
       './node_modules/fontkit/src/opentype/shapers/*.trie',
     ],

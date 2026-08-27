@@ -21,10 +21,22 @@ const VERIFICACOES = [
     descricao: 'geração do currículo em PDF',
     exigencias: [
       {
+        // Esta é a verificação que importa: foi exatamente este arquivo que faltou em
+        // produção. A primeira versão deste script conferia os `.afm` e dava verde
+        // enquanto o módulo realmente exigido continuava fora do pacote.
+        nome: 'módulos das fontes padrão do pdfkit (standard-fonts/*.cjs)',
+        // Sem normalizar separador: o manifesto usa `\` no Windows e `/` no Linux.
+        casa: (arquivo) => arquivo.includes('standard-fonts'),
+        minimo: 14,
+        porque:
+          'o pdfkit exige cada fonte pelo nome em tempo de execução; sem elas a função ' +
+          'falha com "Cannot find module .../standard-fonts/Helvetica.cjs"',
+      },
+      {
         nome: 'métricas das fontes padrão do pdfkit (.afm)',
         casa: (arquivo) => arquivo.endsWith('.afm'),
         minimo: 14,
-        porque: 'sem elas o pdfkit não consegue medir Helvetica e falha ao renderizar',
+        porque: 'usadas para medir o texto das fontes padrão',
       },
       {
         nome: 'tabelas unicode do fontkit (.trie)',
