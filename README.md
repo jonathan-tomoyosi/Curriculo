@@ -109,11 +109,13 @@ tecnologia foi usada. Se não dá para escrever onde usou, não entra na lista.
 
 ## Deploy
 
-Projeto Next.js padrão na Vercel — importar o repositório e publicar. **Não há variável
-de ambiente para configurar.**
+Em produção em **https://curriculo.jonathan-tomoyosi.com**, num container Docker na
+Lightsail, atrás do nginx de entrada da máquina. Passo a passo, isolamento e atualização em
+[docs/DEPLOY.md](./docs/DEPLOY.md).
 
-A URL canônica usada em `metadataBase`, `hreflang`, sitemap e robots é resolvida sozinha
-por [`src/lib/site-url.ts`](./src/lib/site-url.ts), nesta ordem:
+A URL canônica usada em `metadataBase`, `hreflang`, sitemap e robots é resolvida
+por [`src/lib/site-url.ts`](./src/lib/site-url.ts), nesta ordem (no Docker, a 1ª vem do
+`docker-compose.yml` como argumento de build):
 
 1. `NEXT_PUBLIC_SITE_URL` — defina apenas se houver domínio próprio
 2. `VERCEL_PROJECT_PRODUCTION_URL` — o domínio de produção que a Vercel injeta sozinha

@@ -1,0 +1,54 @@
+# Portfólio em produção (Lightsail `Tomoyosi`). Ver docs/DEPLOY.md.
+#
+# A máquina hospeda outros projetos, então o isolamento é a regra principal:
+# - sem porta publicada no host: quem alcança o container é só o nginx de entrada
+#   (`afiliados-nginx`), que entra na rede `curriculo-borda`;
+# - a rede é `internal`: sem saída para a internet e sem rota para as redes dos outros
+#   projetos (Postgres, backends). Um site estático não precisa falar com ninguém;
+# - processo sem root, sistema de arquivos só leitura, sem capabilities, com teto de
+#   memória, CPU e processos.
+
+name: curriculo
+
+services:
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SITE_URL: https://curriculo.jonathan-tomoyosi.com
+    image: curriculo-web:local
+    container_name: curriculo-web
+    restart: unless-stopped
+    networks:
+      - borda
+    read_only: true
+    tmpfs:
+      # Cache do otimizador de imagens do Next; o resto do disco fica só leitura.
+      - /app/.next/cache:size=64m,uid=1000,gid=1000,mode=0700
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3100/pt').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  # Criada pelo compose do automacao-cupons (dono do nginx de entrada), com `internal: true`.
+  # Fica do lado de lá de propósito: se fosse daqui, o nginx de entrada — e com ele o painel —
+  # não subiria numa máquina onde o portfólio ainda não foi publicado.
+  borda:
+    name: curriculo-borda
+    external: true

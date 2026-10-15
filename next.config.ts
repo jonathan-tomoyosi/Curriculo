@@ -2,6 +2,10 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Build autocontido para a imagem Docker: `.next/standalone` leva só o node_modules
+  // rastreado, então o `outputFileTracingIncludes` abaixo continua valendo.
+  output: 'standalone',
+  poweredByHeader: false,
   // @react-pdf/renderer usa APIs de Node e não deve ser empacotado pelo bundler do servidor.
   serverExternalPackages: ['@react-pdf/renderer'],
 
