@@ -54,16 +54,18 @@ export function ExperienceSection({ locale }: { locale: Locale }) {
                 </p>
               )}
 
-              <ul className="mt-5 flex flex-wrap gap-1.5">
-                {experience.stack.map((tech) => (
-                  <li
-                    key={tech}
-                    className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-[11px] text-subtle"
-                  >
-                    {tech}
-                  </li>
-                ))}
-              </ul>
+              {experience.stack.length > 0 && (
+                <ul className="mt-5 flex flex-wrap gap-1.5">
+                  {experience.stack.map((tech) => (
+                    <li
+                      key={tech}
+                      className="rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-[11px] text-subtle"
+                    >
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </li>
         ))}

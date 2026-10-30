@@ -25,19 +25,19 @@ const COLORS = {
 
 const styles = StyleSheet.create({
   page: {
-    paddingTop: 40,
-    paddingBottom: 48,
+    paddingTop: 34,
+    paddingBottom: 42,
     paddingHorizontal: 46,
     fontSize: 9,
     fontFamily: 'Helvetica',
     color: COLORS.body,
-    lineHeight: 1.5,
+    lineHeight: 1.42,
   },
   name: { fontSize: 22, fontFamily: 'Helvetica-Bold', color: COLORS.ink, letterSpacing: -0.4 },
   headline: { fontSize: 11, color: COLORS.accent, marginTop: 12, fontFamily: 'Helvetica-Bold' },
   contactRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 12, gap: 4 },
   contactItem: { fontSize: 8.5, color: COLORS.muted },
-  rule: { borderBottomWidth: 1, borderBottomColor: COLORS.rule, marginVertical: 14 },
+  rule: { borderBottomWidth: 1, borderBottomColor: COLORS.rule, marginVertical: 10 },
   sectionTitle: {
     fontSize: 8.5,
     fontFamily: 'Helvetica-Bold',
@@ -46,16 +46,16 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     textTransform: 'uppercase',
   },
-  section: { marginBottom: 14 },
+  section: { marginBottom: 11 },
   entryHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
   entryTitle: { fontSize: 11, fontFamily: 'Helvetica-Bold', color: COLORS.ink },
   entryMeta: { fontSize: 8.5, color: COLORS.muted },
   entryRole: { fontSize: 9.5, color: COLORS.accent, marginTop: 1, marginBottom: 4 },
-  entry: { marginBottom: 10 },
-  bulletRow: { flexDirection: 'row', marginBottom: 2.5, paddingRight: 6 },
+  entry: { marginBottom: 8 },
+  bulletRow: { flexDirection: 'row', marginBottom: 1.5, paddingRight: 6 },
   bulletMark: { width: 9, color: COLORS.accent },
   bulletText: { flex: 1 },
-  tag: { fontSize: 8, color: COLORS.muted, marginTop: 4 },
+  tag: { fontSize: 8, color: COLORS.muted, marginTop: 3 },
   twoColumn: { flexDirection: 'row', gap: 22 },
   column: { flex: 1 },
   stackRow: { marginBottom: 5 },
@@ -126,21 +126,31 @@ export function CvDocument({ locale }: { locale: Locale }) {
         </Section>
 
         <Section title={ui.sections.experience.title[locale]}>
-          {experiences.map((experience) => (
-            <View key={experience.id} style={styles.entry} wrap={false}>
-              <View style={styles.entryHeader}>
-                <Text style={styles.entryTitle}>{experience.company}</Text>
-                <Text style={styles.entryMeta}>
-                  {experience.period ? formatPeriod(experience.period, locale, present) : ''}
-                </Text>
+          {/* Experiência pode quebrar entre páginas (o histórico longo não cabe em blocos
+              inteiros sem deixar vão); o cabeçalho nunca fica órfão no pé da página. */}
+          {experiences.map((experience) => {
+            const [first, ...rest] = experience.highlights[locale]
+            return (
+              <View key={experience.id} style={styles.entry}>
+                <View wrap={false}>
+                  <View style={styles.entryHeader}>
+                    <Text style={styles.entryTitle}>{experience.company}</Text>
+                    <Text style={styles.entryMeta}>
+                      {experience.period ? formatPeriod(experience.period, locale, present) : ''}
+                    </Text>
+                  </View>
+                  <Text style={styles.entryRole}>{experience.role[locale]}</Text>
+                  {first && <Bullet>{first}</Bullet>}
+                </View>
+                {rest.map((highlight) => (
+                  <Bullet key={highlight}>{highlight}</Bullet>
+                ))}
+                {experience.stack.length > 0 && (
+                  <Text style={styles.tag}>{experience.stack.join(' · ')}</Text>
+                )}
               </View>
-              <Text style={styles.entryRole}>{experience.role[locale]}</Text>
-              {experience.highlights[locale].map((highlight) => (
-                <Bullet key={highlight}>{highlight}</Bullet>
-              ))}
-              <Text style={styles.tag}>{experience.stack.join(' · ')}</Text>
-            </View>
-          ))}
+            )
+          })}
         </Section>
 
         <Section title={ui.sections.projects.title[locale]}>
@@ -175,7 +185,7 @@ export function CvDocument({ locale }: { locale: Locale }) {
           ))}
         </Section>
 
-        <View style={styles.twoColumn}>
+        <View style={styles.twoColumn} wrap={false}>
           <View style={styles.column}>
             <Section title={ui.sections.education.title[locale]}>
               {education.map((item) => (

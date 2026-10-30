@@ -21,7 +21,7 @@ funcione como **prova de competência técnica**, não apenas como currículo on
 |---|------|---------|
 | D1 | Posicionamento | **Generalista** — dev + dados + infra + design com peso equilibrado |
 | D2 | Open Br | **Citar apenas a empresa** — sem nome de cliente, município ou sistema |
-| D3 | Histórico não-técnico | **Removido** — 100% tech |
+| D3 | Histórico não-técnico | ~~Removido — 100% tech~~ → **reaberta em 30/10/2026**: Smart Sigma, Ambipar Bank e Romacell voltam na mesma linha do tempo, mesmo formato, no site e no PDF |
 | D4 | Estética | **Moderno técnico** (referência Vercel / Linear) |
 | D5 | Estrutura | **Home única + página por projeto** (`/projetos/[slug]`) |
 | D6 | Deploy | Mesmo repositório `Curriculo` + **projeto Vercel próprio (hobby)** |
@@ -107,7 +107,7 @@ lê os valores direto de `globals.css` — ver `src/app/contrast.test.ts`.
 ## 7. Conteúdo — o que entra, sai e muda
 
 ### Sai
-Smart Sigma · Ambipar Bank · Rom@ Cell / Alô Cell · Buffet Lolly Pop · Colégio Maria
+~~Smart Sigma · Ambipar Bank · Rom@ Cell / Alô Cell~~ (voltaram — ver D3) · Buffet Lolly Pop · Colégio Maria
 Imaculada · Tecnoponta · idade · "sei o básico de C" · "aprendendo JavaScript" ·
 habilidades de Office / montagem de máquinas / redes Windows · TecBlog · Menu · Anna Bella.
 
@@ -125,6 +125,9 @@ habilidades de Office / montagem de máquinas / redes Windows · TecBlog · Menu
 | Open Br (nov/2025 – atual) | Descrição genérica por D2: Big Data, infraestrutura AWS, sistemas fiscais, auditoria de processamento, análise de dados, UX/UI, migração de legado |
 | Igreja Bom Pastor SP | Detalhada + estudo de caso com link ao vivo |
 | Yma Log (2026) | Detalhada — mobile, redesenho, transposição web → mobile |
+| Smart Sigma (jul/2024 – abr/2025) | Auxiliar de logística, com ênfase em teste/configuração de rede e CFTV Ubiquiti e rastreio de equipamentos |
+| Ambipar Bank (dez/2022 – out/2023) | Suporte ao app bancário + análise antifraude |
+| Romacell (dez/2019 – dez/2022) | Loja da família: manutenção de hardware/software de celulares e notebooks, atendimento, estoque |
 
 ### Projetos com página própria
 1. **Bom Pastor SP** — carro-chefe. Next 15, React 19, Supabase, Tailwind 4, Recharts, Nodemailer; 18 módulos (financeiro, dízimo, escalas, calendário, kids, orações, notificações); mobile-first; no ar em `bom-pastor-scs.vercel.app`

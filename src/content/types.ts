@@ -61,6 +61,7 @@ export interface Experience {
   period?: Period
   summary: L10n<string>
   highlights: L10n<readonly string[]>
+  /** Pode ficar vazio em funções não técnicas — a linha de tecnologias some. */
   stack: readonly string[]
   /**
    * Trabalho sob confidencialidade: nomes de cliente, sistema e links são omitidos
